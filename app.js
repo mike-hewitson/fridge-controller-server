@@ -15,7 +15,7 @@ var readingRoute = require('./routes/readingRouter');
 
 var mongoose = require('mongoose');
 
-var url = 'mongodb://192.168.1.101:27017/charcuterie';
+var url = 'mongodb://'+process.env.DB_SERVER+':'+process.env.DB_PORT+'/charcuterie';
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

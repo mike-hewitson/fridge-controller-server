@@ -1,6 +1,4 @@
-.bundle
+.env
 *.sublime-workspace
 *.sublime-project
-bower_components
 node_modules
-dist
