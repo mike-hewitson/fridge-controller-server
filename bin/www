@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+/**
+* Added to enable monitoring
+*/
 require('pmx').init({
   http : true
 });
