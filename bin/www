@@ -4,6 +4,11 @@
  * Module dependencies.
  */
 
+require('pmx').init({
+  http : true
+});
+
+
 require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('rest-server:server');
