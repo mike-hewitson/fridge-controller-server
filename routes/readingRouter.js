@@ -145,35 +145,35 @@ readingRouter.route('/:readingId/sensors')
         });
     });
 
-readingRouter.route('/:readingId/comments/:commentId')
-    .get(function(req, res, next) {
-        Readings.findById(req.params.readingId, function(err, reading) {
-            if (err) throw err;
-            res.json(reading.comments.id(req.params.commentId));
-        });
-    })
-    .put(function(req, res, next) {
-        // We delete the existing commment and insert the updated
-        // comment as a new comment
-        Readings.findById(req.params.readingId, function(err, reading) {
-            if (err) throw err;
-            reading.comments.id(req.params.commentId).remove();
-            reading.comments.push(req.body);
-            reading.save(function(err, reading) {
-                if (err) throw err;
-                console.log('Updated Comments!');
-                res.json(reading);
-            });
-        });
-    })
-    .delete(function(req, res, next) {
-        Readings.findById(req.params.readingId, function(err, reading) {
-            reading.comments.id(req.params.commentId).remove();
-            reading.save(function(err, resp) {
-                if (err) throw err;
-                res.json(resp);
-            });
-        });
-    });
+// readingRouter.route('/:readingId/comments/:commentId')
+//     .get(function(req, res, next) {
+//         Readings.findById(req.params.readingId, function(err, reading) {
+//             if (err) throw err;
+//             res.json(reading.comments.id(req.params.commentId));
+//         });
+//     })
+//     .put(function(req, res, next) {
+//         // We delete the existing commment and insert the updated
+//         // comment as a new comment
+//         Readings.findById(req.params.readingId, function(err, reading) {
+//             if (err) throw err;
+//             reading.comments.id(req.params.commentId).remove();
+//             reading.comments.push(req.body);
+//             reading.save(function(err, reading) {
+//                 if (err) throw err;
+//                 console.log('Updated Comments!');
+//                 res.json(reading);
+//             });
+//         });
+//     })
+//     .delete(function(req, res, next) {
+//         Readings.findById(req.params.readingId, function(err, reading) {
+//             reading.comments.id(req.params.commentId).remove();
+//             reading.save(function(err, resp) {
+//                 if (err) throw err;
+//                 res.json(resp);
+//             });
+//         });
+//     });
 
 module.exports = readingRouter;

@@ -17,6 +17,8 @@ var app = require('../app');
 var debug = require('debug')('rest-server:server');
 var http = require('http');
 
+console.log(DB_SERVER, DB_PORT)
+
 /**
  * Get port from environment and store in Express.
  */
