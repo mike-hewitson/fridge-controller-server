@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var sensorSchema = new Schema({
+    _id: {
+        type: Schema.Types.ObjectId,
+        required: false
+    },
     sensor: {
         type: String,
         required: true

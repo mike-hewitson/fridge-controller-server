@@ -26,7 +26,7 @@ readingRouter.route('/')
             console.log('reading created!');
             var id = reading._id;
 
-            res.writeHead(200, {
+            res.writeHead(201, {
                 'Content-Type': 'text/plain'
             });
             res.end('Added the reading with id: ' + id);
