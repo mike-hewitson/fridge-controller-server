@@ -12,6 +12,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var readingRoute = require('./routes/readingRouter');
+var latestRoute = require('./routes/latestRouter');
+var historyRoute = require('./routes/historyRouter');
 
 var mongoose = require('mongoose');
 
@@ -61,6 +63,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/readings', readingRoute);
+app.use('/latest', latestRoute);
+app.use('/history', historyRoute);
 
 // Place the express-winston errorLogger after the router.
 app.use(expressWinston.errorLogger({
