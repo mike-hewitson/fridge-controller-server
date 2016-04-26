@@ -7,6 +7,8 @@ To run the mocha tests as well as report on test coverage, use the following com
 ```
 $ gulp test
 ```
+Make sure the mongo instance pointed to by the environment variables (see below) is up and running.
+
 
 $ gulp lint
 <!-- $ jasmine-node . -->
