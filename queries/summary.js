@@ -21,7 +21,7 @@ db.readings.aggregate(
             "_id": {
                 "date": "$yearMonthDay"
             },
-            "cnt": {
+            "count": {
                 "$sum": 1
             },
             "avg-hum": {
@@ -29,6 +29,18 @@ db.readings.aggregate(
             },
             "avg-temp": {
                 "$avg": "$sensors.temp"
+            },
+            "max-temp": {
+                "$max": "$sensors.temp"
+            },
+            "min-temp": {
+                "$min": "$sensors.temp"
+            },
+            "max-hum": {
+                "$max": "$sensors.hum"
+            },
+            "min-hum": {
+                "$min": "$sensors.hum"
             }
         }
     }]);

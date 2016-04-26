@@ -4,11 +4,10 @@ var stylish = require('jshint-stylish');
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 
-gulp.task('lint', function() {
-    return gulp.src(['routes/**/*.js', 'models/**/*.js', 'app.js'])
+gulp.task('jshint', function() {
+    return gulp.src(['routes/*.js', 'app.js'])
         .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(jshint.reporter('fail'));
+        .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('pre-test', function() {
@@ -27,3 +26,4 @@ gulp.task('test', ['pre-test'], function() {
         // Enforce a coverage of at least 90%
         .pipe(istanbul.enforceThresholds({ thresholds: { global: 30 } }));
 });
+

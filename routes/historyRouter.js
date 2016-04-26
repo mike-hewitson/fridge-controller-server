@@ -18,7 +18,7 @@ historyRouter.route('/')
         var dateTo;
         var dateFrom = new Date();
         dateTo = new Date(Date.now());
-        dateFrom.setDate(dateTo.getDate() - 5);
+        dateFrom.setDate(dateTo.getDate() - 7);
         var query = Readings.find({
                 date: {
                     $gte: dateFrom,

@@ -14,6 +14,7 @@ var users = require('./routes/users');
 var readingRoute = require('./routes/readingRouter');
 var latestRoute = require('./routes/latestRouter');
 var historyRoute = require('./routes/historyRouter');
+var summaryRoute = require('./routes/summaryRouter');
 
 var mongoose = require('mongoose');
 
@@ -38,12 +39,11 @@ app.set('view engine', 'jade');
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
     transports: [
-        new winston.transports.Console({
-            json: true,
-            expressFormat: true,
-            colorize: true,
-            tags: ['a test']
-        }),
+        // new winston.transports.Console({
+        //     json: true,
+        //     expressFormat: true,
+        //     colorize: true
+        // }),
         new Papertrail({
             host: 'logs4.papertrailapp.com',
             port: 32583, // your port here
@@ -65,6 +65,7 @@ app.use('/users', users);
 app.use('/readings', readingRoute);
 app.use('/latest', latestRoute);
 app.use('/history', historyRoute);
+app.use('/summary', summaryRoute);
 
 // Place the express-winston errorLogger after the router.
 app.use(expressWinston.errorLogger({
