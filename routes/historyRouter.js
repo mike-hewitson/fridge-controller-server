@@ -25,7 +25,7 @@ historyRouter.route('/')
                     $lt: dateTo
                 }
             })
-            .sort({ $natural: 1 });
+            .sort({ date: 1 });
         query.exec(function(err, reading) {
             if (err) throw err;
             res.json(reading);
@@ -49,7 +49,7 @@ historyRouter.route('/:daysBack')
                     $lt: dateTo
                 }
             })
-            .sort({ $natural: 1 });
+            .sort({ date: 1 });
         query.exec(function(err, reading) {
             if (err) throw err;
             res.json(reading);
