@@ -64,7 +64,7 @@ historyRouter.route('/')
                 }
             }
         }, {
-            $sort: { "_id.date": -1}
+            $sort: { "_id.date": 1}
         }]);
 
         query.exec(function(err, reading) {
@@ -128,6 +128,8 @@ historyRouter.route('/:daysBack')
                     "$min": "$sensors.hum"
                 }
             }
+        }, {
+            $sort: { "_id.date": 1}
         }]);
 
         query.exec(function(err, reading) {
