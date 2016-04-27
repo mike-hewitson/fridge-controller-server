@@ -1,3 +1,4 @@
+var ForecastIo = require('forecastio');
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -21,6 +22,11 @@ readingRouter.route('/')
         });
     })
     .post(function(req, res, next) {
+
+        // var forecastIo = new ForecastIo('<apiKey>');
+        // forecastIo.forecast('51.506', '-0.127').then(function(data) {
+        //     console.log(JSON.stringify(data, null, 2));
+        // });
         Readings.create(req.body, function(err, reading) {
             if (err) throw err;
             console.log('reading created!');
