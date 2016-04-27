@@ -63,6 +63,8 @@ historyRouter.route('/')
                     "$min": "$sensors.hum"
                 }
             }
+        }, {
+            $sort: { "_id.date": -1}
         }]);
 
         query.exec(function(err, reading) {

@@ -9,6 +9,7 @@ $ gulp test
 ```
 Make sure the mongo instance pointed to by the environment variables (see below) is up and running.
 
+For testing the front end, run 
 
 $ gulp lint
 <!-- $ jasmine-node . -->
