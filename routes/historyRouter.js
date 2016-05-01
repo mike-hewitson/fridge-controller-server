@@ -28,7 +28,7 @@ historyRouter.route('/')
             $project: {
                 sensors: 1,
                 date: 1,
-                theMod: { $mod: [{ $millisecond: "$date" }, 3] }
+                theMod: { $mod: [{ $millisecond: "$date" }, 7] }
             }
         }, {
             $match: {
