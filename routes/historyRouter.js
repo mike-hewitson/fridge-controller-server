@@ -19,7 +19,7 @@ historyRouter.route('/')
         var dateFrom = new Date();
         dateTo = new Date(Date.now());
 
-        dateFrom.setDate(dateTo.getDate() - 7);
+        dateFrom.setDate(dateTo.getDate() - 20);
         var query = Readings.aggregate([{
             $match: {
                 date: { $gte: dateFrom }
@@ -61,8 +61,10 @@ historyRouter.route('/:daysBack')
     .get(function(req, res, next) {
         var dateTo;
         var dateFrom = new Date();
+        var daysMod = parseInt(req.params.daysBack);
         dateTo = new Date(Date.now());
-        dateFrom.setDate(dateTo.getDate() - req.params.daysBack);
+        dateFrom.setDate(dateTo.getDate() - daysMod);
+        // console.log(req.params.daysBack);
         var query = Readings.aggregate([{
             $match: {
                 date: { $gte: dateFrom }
@@ -71,7 +73,7 @@ historyRouter.route('/:daysBack')
             $project: {
                 sensors: 1,
                 date: 1,
-                theMod: { $mod: [{ $millisecond: "$date" }, req.params.daysBack] }
+                theMod: { $mod: [{ $millisecond: "$date" }, daysMod] }
             }
         }, {
             $match: {
