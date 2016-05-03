@@ -18,6 +18,7 @@ latestRouter.route('/')
     .get(function(req, res, next) {
         var query = Readings.find().limit(1).sort({ $natural: -1 });
         query.exec(function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
