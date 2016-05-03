@@ -5,7 +5,7 @@ var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 
 gulp.task('jshint', function() {
-    return gulp.src(['routes/*.js', 'app.js'])
+    return gulp.src(['routes/**/*.js', 'models/**/*.js', 'app.js'])
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
 });
