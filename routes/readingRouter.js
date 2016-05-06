@@ -1,7 +1,27 @@
+var myLogger = require('../logging');
 var ForecastIo = require('forecastio');
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var winston = require('winston');
+var Papertrail = require('winston-papertrail').Papertrail;
+
+var myLogger = new winston.Logger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            expressFormat: true,
+            colorize: true
+        }),
+        new winston.transports.Papertrail({
+            host: 'logs4.papertrailapp.com',
+            port: 32583, // your port here
+            program: 'rest-server',
+            colorize: true
+        })
+    ]
+});
+
 
 var Readings = require('../models/readings');
 
@@ -27,15 +47,26 @@ readingRouter.route('/')
         // forecastIo.forecast('51.506', '-0.127').then(function(data) {
         //     console.log(JSON.stringify(data, null, 2));
         // });
+                // myLogger.info("incoming body", req.body);
         Readings.create(req.body, function(err, reading) {
-            if (err) throw err;
-            console.log('reading created!');
-            var id = reading._id;
+            if (err) {
+                myLogger.error(err);
+                // myLogger.error(req);
+                myLogger.error(req.body);
+                res.writeHead(500, {
+                    'Content-Type': 'text/plain'
+                });
+                res.end('Validation error on reading');
+                // throw err;
+            } else {
+                console.log('reading created!');
+                var id = reading._id;
 
-            res.writeHead(201, {
-                'Content-Type': 'text/plain'
-            });
-            res.end('Added the reading with id: ' + id);
+                res.writeHead(201, {
+                    'Content-Type': 'text/plain'
+                });
+                res.end('Added the reading with id: ' + id);
+            }
         });
     })
     .delete(function(req, res, next) {

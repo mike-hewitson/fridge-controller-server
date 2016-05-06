@@ -15,8 +15,23 @@ var readingRoute = require('./routes/readingRouter');
 var latestRoute = require('./routes/latestRouter');
 var historyRoute = require('./routes/historyRouter');
 var summaryRoute = require('./routes/summaryRouter');
-
 var mongoose = require('mongoose');
+
+var myLogger = new winston.Logger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            expressFormat: true,
+            colorize: true
+        }),
+        new winston.transports.Papertrail({
+            host: 'logs4.papertrailapp.com',
+            port: 32583, // your port here
+            program: 'rest-server',
+            colorize: true
+        })
+    ]
+});
 
 var url = 'mongodb://'+process.env.DB_SERVER+':'+process.env.DB_PORT+'/charcuterie';
 mongoose.connect(url);
@@ -24,7 +39,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     // we're connected!
-    console.log("Connected correctly to server");
+    myLogger.info("Connected correctly to server");
 });
 
 var app = express();

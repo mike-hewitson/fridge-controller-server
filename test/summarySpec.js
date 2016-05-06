@@ -45,10 +45,10 @@ describe('Summary', function() {
         });
     });
 
-    describe('GET /summary/2', function() {
+    describe('GET /summary/5', function() {
         it('respond with code HTTP_OK + list of 1 summarized readings', function(done) {
             request(app)
-                .get('/summary/2')
+                .get('/summary/6')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
