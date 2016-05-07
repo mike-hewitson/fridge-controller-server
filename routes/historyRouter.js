@@ -20,6 +20,7 @@ historyRouter.route('/')
             .sort({ date: 1 });
 
         query.exec(function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
@@ -37,7 +38,6 @@ historyRouter.route('/:daysBack')
         var daysMod = parseInt(req.params.daysBack);
         dateTo = new Date(Date.now());
         dateFrom.setDate(dateTo.getDate() - daysMod);
-        // console.log(req.params.daysBack);
         var query = Readings.aggregate([{
             $match: {
                 date: { $gte: dateFrom }
@@ -63,6 +63,7 @@ historyRouter.route('/:daysBack')
         //     })
         //     .sort({ date: 1 });
         query.exec(function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });

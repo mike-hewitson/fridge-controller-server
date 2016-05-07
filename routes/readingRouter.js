@@ -37,6 +37,7 @@ readingRouter.route('/')
     })
     .get(function(req, res, next) {
         Readings.find({}, function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
@@ -49,6 +50,7 @@ readingRouter.route('/')
         // });
                 // myLogger.info("incoming body", req.body);
         Readings.create(req.body, function(err, reading) {
+            /* istanbul ignore if */
             if (err) {
                 myLogger.error(err);
                 // myLogger.error(req);
@@ -71,6 +73,7 @@ readingRouter.route('/')
     })
     .delete(function(req, res, next) {
         Readings.remove({}, function(err, resp) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(resp);
         });
@@ -84,6 +87,7 @@ readingRouter.route('/:readingId')
     })
     .get(function(req, res, next) {
         Readings.findById(req.params.readingId, function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
@@ -94,12 +98,14 @@ readingRouter.route('/:readingId')
         }, {
             new: true
         }, function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
     })
     .delete(function(req, res, next) {
         Readings.findByIdAndRemove(req.params.readingId, function(err, resp) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(resp);
         });
@@ -113,36 +119,44 @@ readingRouter.route('/:readingId/sensors')
     })
     .get(function(req, res, next) {
         Readings.findById(req.params.readingId, function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading.sensors);
         });
     })
     .post(function(req, res, next) {
         Readings.findById(req.params.readingId, function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             reading.sensors.push(req.body);
             reading.save(function(err, reading) {
+                /* istanbul ignore if */
                 if (err) throw err;
                 console.log('Updated sensors!');
                 res.json(reading);
             });
         });
     })
-    .delete(function(req, res, next) {
-        Readings.findById(req.params.readingId, function(err, reading) {
-            if (err) throw err;
-            for (var i = (reading.sensors.length - 1); i >= 0; i--) {
-                reading.sensors.id(reading.sensors[i]._id).remove();
-            }
-            reading.save(function(err, result) {
-                if (err) throw err;
-                res.writeHead(200, {
-                    'Content-Type': 'text/plain'
-                });
-                res.end('Deleted all sensors!');
-            });
-        });
-    });
+
+    // Not required at this stage
+    // .delete(function(req, res, next) {
+    //     Readings.findById(req.params.readingId, function(err, reading) {
+    //         /* istanbul ignore if */
+    //         if (err) throw err;
+    //         for (var i = (reading.sensors.length - 1); i >= 0; i--) {
+    //             reading.sensors.id(reading.sensors[i]._id).remove();
+    //         }
+    //         reading.save(function(err, result) {
+    //             /* istanbul ignore if */
+    //             if (err) throw err;
+    //             res.writeHead(200, {
+    //                 'Content-Type': 'text/plain'
+    //             });
+    //             res.end('Deleted all sensors!');
+    //         });
+    //     });
+    // })
+    ;
 
 // readingRouter.route('/:readingId/comments/:commentId')
 //     .get(function(req, res, next) {

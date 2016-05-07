@@ -53,7 +53,7 @@ describe('Latest', function() {
     });
 
     describe('GET /history/2', function() {
-        it('respond with code HTTP_OK + list of 7 readings', function(done) {
+        it('respond with code HTTP_OK + list of 4 readings', function(done) {
             request(app)
                 .get('/history/2')
                 .set('Accept', 'application/json')

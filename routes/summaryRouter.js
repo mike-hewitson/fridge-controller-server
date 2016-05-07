@@ -60,6 +60,7 @@ historyRouter.route('/')
         }]);
 
         query.exec(function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
@@ -125,6 +126,7 @@ historyRouter.route('/:daysBack')
         }]);
 
         query.exec(function(err, reading) {
+            /* istanbul ignore if */
             if (err) throw err;
             res.json(reading);
         });
