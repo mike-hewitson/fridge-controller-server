@@ -27,7 +27,15 @@ var readings_fixture = require('./fixtures/readings_fixture');
 describe('Summary', function() {
     beforeEach(function(done) {
         Readings.remove({}, function(err, res) { // don't use drop() as this will occasionnnaly raise a background operation error
-            Readings.insertMany(readings_fixture, done);
+            var difference = new Date() - new Date(readings_fixture[9].date);
+            adjusted_readings = readings_fixture.map(function(element) {
+                var new_date = new Date(new Date(element.date).getTime() + difference);
+                var new_element = element;
+                new_element.date = new_date.toJSON();
+                return new_element;
+            });
+            todays_date = new Date().toISOString().split('T')[0]
+            Readings.insertMany(adjusted_readings, done);
         });
     });
 
@@ -45,16 +53,16 @@ describe('Summary', function() {
         });
     });
 
-    describe('GET /summary/5', function() {
+    describe('GET /summary/1', function() {
         it('respond with code HTTP_OK + list of 1 summarized readings', function(done) {
             request(app)
-                .get('/summary/6')
+                .get('/summary/1')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
                 .expect(function(res) {
                     assert.equal(res.body.length, 1);
-                    assert.equal(res.body[0]._id.date, '2016-04-26');
+                    assert.equal(res.body[0]._id.date, todays_date);
                     assert.equal(res.body[0].count, 7);
                     assert.equal(res.body[0].avgHum, 53.95714351109096);
                     assert.equal(res.body[0].avgTemp, 23.171428680419922);

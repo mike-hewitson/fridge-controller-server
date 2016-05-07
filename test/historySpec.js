@@ -27,7 +27,14 @@ var readings_fixture = require('./fixtures/readings_fixture');
 describe('Latest', function() {
     beforeEach(function(done) {
         Readings.remove({}, function(err, res) { // don't use drop() as this will occasionnnaly raise a background operation error
-            Readings.insertMany(readings_fixture, done);
+            var difference = new Date() - new Date(readings_fixture[9].date);
+            adjusted_readings = readings_fixture.map( function(element) {
+                var new_date = new Date(new Date(element.date).getTime() + difference);
+                var new_element = element;
+                new_element.date = new_date.toJSON();
+                return new_element;
+            });
+            Readings.insertMany(adjusted_readings, done);
         });
     });
 
@@ -39,7 +46,7 @@ describe('Latest', function() {
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
                 .expect(function(res) {
-                    assert.equal(res.body.length, 9);
+                    assert.equal(res.body.length, 10);
                 })
                 .end(done);
         });
@@ -53,7 +60,7 @@ describe('Latest', function() {
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
                 .expect(function(res) {
-                    assert.equal(res.body.length, 7);
+                    assert.equal(res.body.length, 4);
                 })
                 .end(done);
         });

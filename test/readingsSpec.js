@@ -54,7 +54,14 @@ var new_sensor = {
 describe('Readings', function() {
     beforeEach(function(done) {
         Readings.remove({}, function(err, res) { // don't use drop() as this will occasionnnaly raise a background operation error
-            Readings.insertMany(readings_fixture, done);
+            var difference = new Date() - new Date(readings_fixture[9].date);
+            adjusted_readings = readings_fixture.map( function(element) {
+                var new_date = new Date(new Date(element.date).getTime() + difference);
+                var new_element = element;
+                new_element.date = new_date.toJSON();
+                return new_element;
+            });
+            Readings.insertMany(adjusted_readings, done);
         });
     });
 
@@ -74,7 +81,7 @@ describe('Readings', function() {
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
                 .expect(function(res) {
-                    assert.deepEqual(res.body, readings_fixture);
+                    assert.deepEqual(res.body, adjusted_readings);
                 })
                 .end(done);
         });

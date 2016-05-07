@@ -15,15 +15,7 @@ historyRouter.route('/')
         next();
     })
     .get(function(req, res, next) {
-        var dateTo;
-        var dateFrom = new Date();
-        dateTo = new Date(Date.now());
-        dateFrom.setDate(dateTo.getDate() - 28);
         var query = Readings.aggregate([{
-            $match: {
-                date: { $gte: dateFrom }
-            }
-        }, {
             $unwind: {
                 path: "$sensors"
             }

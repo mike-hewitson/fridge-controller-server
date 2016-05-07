@@ -15,36 +15,9 @@ historyRouter.route('/')
         next();
     })
     .get(function(req, res, next) {
-        var dateTo;
-        var dateFrom = new Date();
-        dateTo = new Date(Date.now());
 
-        dateFrom.setDate(dateTo.getDate() - 20);
-        var query = Readings.aggregate([{
-            $match: {
-                date: { $gte: dateFrom }
-            }
-        }, {
-            $project: {
-                sensors: 1,
-                date: 1,
-                theMod: { $mod: [{ $millisecond: "$date" }, 7] }
-            }
-        }, {
-            $match: {
-                theMod: { $eq: 0 }
-            }
-        }, {
-            $sort: { date: 1 }
-        }]);
-
-        // var query = Readings.find({
-        //         date: {
-        //             $gte: dateFrom,
-        //             $lt: dateTo
-        //         }
-        //     })
-        //     .sort({ date: 1 });
+        var query = Readings.find()
+            .sort({ date: 1 });
 
         query.exec(function(err, reading) {
             if (err) throw err;
