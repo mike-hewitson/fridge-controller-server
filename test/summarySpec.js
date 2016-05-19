@@ -1,8 +1,8 @@
 /* test/test_dish.js*/
 
 var request = require('supertest');
-var assert = require('chai').assert
-var expect = require('chai').expect
+var assert = require('chai').assert;
+var expect = require('chai').expect;
 
 // var assert = require('assert');
 var mongoose = require('mongoose');

@@ -1,8 +1,8 @@
 /* test/test_dish.js*/
 
 var request = require('supertest');
-var assert = require('chai').assert
-var expect = require('chai').expect
+var assert = require('chai').assert;
+var expect = require('chai').expect;
 
 // var assert = require('assert');
 var mongoose = require('mongoose');
@@ -81,7 +81,9 @@ describe('Readings', function() {
                 .expect('Content-Type', /json/)
                 .expect(HTTP_OK)
                 .expect(function(res) {
-                    assert.deepEqual(res.body, adjusted_readings);
+                    expect(res.body).to.deep.equal(adjusted_readings);
+                    console.log("its working!!!");
+                    // assert.deepEqual(res.body, adjusted_readings);
                 })
                 .end(done);
         });

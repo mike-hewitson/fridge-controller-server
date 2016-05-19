@@ -1,8 +1,8 @@
 /* test/test_dish.js*/
 
 var request = require('supertest');
-var assert = require('chai').assert
-var expect = require('chai').expect
+var assert = require('chai').assert;
+var expect = require('chai').expect;
 
 // var assert = require('assert');
 var mongoose = require('mongoose');
@@ -39,7 +39,7 @@ describe('Latest', function() {
     });
 
     describe('GET /history', function() {
-        it('respond with code HTTP_OK + list of 9 readings', function(done) {
+        it('respond with code HTTP_OK + list of 10 readings', function(done) {
             request(app)
                 .get('/history')
                 .set('Accept', 'application/json')
