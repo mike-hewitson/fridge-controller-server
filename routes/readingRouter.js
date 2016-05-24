@@ -44,11 +44,13 @@ readingRouter.route('/')
     })
     .post(function(req, res, next) {
 
-        // var forecastIo = new ForecastIo('<apiKey>');
-        // forecastIo.forecast('51.506', '-0.127').then(function(data) {
-        //     console.log(JSON.stringify(data, null, 2));
-        // });
-                // myLogger.info("incoming body", req.body);
+        var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
+        forecastIo.forecast('51.506', '-0.127').then(function(data) {
+            myLogger.info(JSON.stringify(data, null, 2));
+        });
+
+        // myLogger.info("incoming body", req.body);
+
         Readings.create(req.body, function(err, reading) {
             /* istanbul ignore if */
             if (err) {
@@ -138,25 +140,25 @@ readingRouter.route('/:readingId/sensors')
         });
     })
 
-    // Not required at this stage
-    // .delete(function(req, res, next) {
-    //     Readings.findById(req.params.readingId, function(err, reading) {
-    //         /* istanbul ignore if */
-    //         if (err) throw err;
-    //         for (var i = (reading.sensors.length - 1); i >= 0; i--) {
-    //             reading.sensors.id(reading.sensors[i]._id).remove();
-    //         }
-    //         reading.save(function(err, result) {
-    //             /* istanbul ignore if */
-    //             if (err) throw err;
-    //             res.writeHead(200, {
-    //                 'Content-Type': 'text/plain'
-    //             });
-    //             res.end('Deleted all sensors!');
-    //         });
-    //     });
-    // })
-    ;
+// Not required at this stage
+// .delete(function(req, res, next) {
+//     Readings.findById(req.params.readingId, function(err, reading) {
+//         /* istanbul ignore if */
+//         if (err) throw err;
+//         for (var i = (reading.sensors.length - 1); i >= 0; i--) {
+//             reading.sensors.id(reading.sensors[i]._id).remove();
+//         }
+//         reading.save(function(err, result) {
+//             /* istanbul ignore if */
+//             if (err) throw err;
+//             res.writeHead(200, {
+//                 'Content-Type': 'text/plain'
+//             });
+//             res.end('Deleted all sensors!');
+//         });
+//     });
+// })
+;
 
 // readingRouter.route('/:readingId/comments/:commentId')
 //     .get(function(req, res, next) {
