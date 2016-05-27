@@ -1,5 +1,5 @@
 var myLogger = require('../logging');
-var ForecastIo = require('forecastio');
+// var ForecastIo = require('forecastio');
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -44,12 +44,26 @@ readingRouter.route('/')
     })
     .post(function(req, res, next) {
 
-        var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
-        forecastIo.forecast('51.506', '-0.127').then(function(data) {
-            myLogger.info(JSON.stringify(data, null, 2));
-        });
+        // var options = {
+        //     exclude: 'hourly,daily,flags',
+        //     units: 'si'
+        // };
+        // var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
 
-        // myLogger.info("incoming body", req.body);
+        // forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
+        //     // myLogger.info(JSON.stringify(data));
+        //     myLogger.info(data.currently.temperature);
+        //     myLogger.info(data.currently.humidity * 100);
+        //     var environment = {
+        //         sensor: 'Environment'
+        //     }
+        //     environment.temp = data.currently.temperature;
+        //     environment.hum = data.currently.humidity * 100;
+        //     myLogger.info(JSON.stringify(environment));
+        // });
+
+        // myLogger.info(JSON.stringify(req.body));
+
 
         Readings.create(req.body, function(err, reading) {
             /* istanbul ignore if */
