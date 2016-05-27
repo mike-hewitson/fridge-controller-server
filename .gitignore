@@ -2,6 +2,5 @@
 *.sublime-workspace
 *.sublime-project
 node_modules
-/coverage
 *.log
 .idea
