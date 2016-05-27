@@ -55,13 +55,6 @@ historyRouter.route('/:daysBack')
         }, {
             $sort: { date: 1 }
         }]);
-        // var query = Readings.find({
-        //         date: {
-        //             $gte: dateFrom,
-        //             $lt: dateTo
-        //         }
-        //     })
-        //     .sort({ date: 1 });
         query.exec(function(err, reading) {
             /* istanbul ignore if */
             if (err) throw err;
