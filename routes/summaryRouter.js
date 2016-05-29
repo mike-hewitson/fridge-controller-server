@@ -21,7 +21,7 @@ historyRouter.route('/')
             }
         }, {
             "$match": {
-                "sensors.sensor": { "$eq": "Ambient" }
+                "sensors.sensor": { "$eq": "Environment" }
             }
         }, {
             $project: {
@@ -87,7 +87,7 @@ historyRouter.route('/:daysBack')
             }
         }, {
             "$match": {
-                "sensors.sensor": { "$eq": "Ambient" }
+                "sensors.sensor": { "$eq": "Environment" }
             }
         }, {
             $project: {
