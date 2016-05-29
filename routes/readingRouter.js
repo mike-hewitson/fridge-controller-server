@@ -1,5 +1,3 @@
-var myLogger = require('../logging');
-// var ForecastIo = require('forecastio');
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -132,56 +130,5 @@ readingRouter.route('/:readingId/sensors')
             });
         });
     });
-
-// Not required at this stage
-// .delete(function(req, res, next) {
-//     Readings.findById(req.params.readingId, function(err, reading) {
-//         /* istanbul ignore if */
-//         if (err) throw err;
-//         for (var i = (reading.sensors.length - 1); i >= 0; i--) {
-//             reading.sensors.id(reading.sensors[i]._id).remove();
-//         }
-//         reading.save(function(err, result) {
-//             /* istanbul ignore if */
-//             if (err) throw err;
-//             res.writeHead(200, {
-//                 'Content-Type': 'text/plain'
-//             });
-//             res.end('Deleted all sensors!');
-//         });
-//     });
-// })
-
-
-// readingRouter.route('/:readingId/comments/:commentId')
-//     .get(function(req, res, next) {
-//         Readings.findById(req.params.readingId, function(err, reading) {
-//             if (err) throw err;
-//             res.json(reading.comments.id(req.params.commentId));
-//         });
-//     })
-//     .put(function(req, res, next) {
-//         // We delete the existing commment and insert the updated
-//         // comment as a new comment
-//         Readings.findById(req.params.readingId, function(err, reading) {
-//             if (err) throw err;
-//             reading.comments.id(req.params.commentId).remove();
-//             reading.comments.push(req.body);
-//             reading.save(function(err, reading) {
-//                 if (err) throw err;
-//                 console.log('Updated Comments!');
-//                 res.json(reading);
-//             });
-//         });
-//     })
-//     .delete(function(req, res, next) {
-//         Readings.findById(req.params.readingId, function(err, reading) {
-//             reading.comments.id(req.params.commentId).remove();
-//             reading.save(function(err, resp) {
-//                 if (err) throw err;
-//                 res.json(resp);
-//             });
-//         });
-//     });
 
 module.exports = readingRouter;

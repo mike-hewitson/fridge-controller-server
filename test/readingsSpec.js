@@ -4,14 +4,14 @@ var request = require('supertest');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 
-// var assert = require('assert');
 var mongoose = require('mongoose');
 
 require('dotenv').config();
 var app = require('../app');
 var Readings = require('../models/readings');
 
-var STRICT_REST = true; // change that to false depending on https://www.coursera.org/learn/server-side-development/lecture/bKtMl/exercise-video-rest-api-with-express-mongodb-and-mongoose/discussions/x1AZIu9SEeWB0QpuSDkq-Q
+var STRICT_REST = true;
+// change that to false depending on https://www.coursera.org/learn/server-side-development/lecture/bKtMl/exercise-video-rest-api-with-express-mongodb-and-mongoose/discussions/x1AZIu9SEeWB0QpuSDkq-Q
 var HTTP_OK = 200;
 var HTTP_CREATED = (STRICT_REST) ? 201 : HTTP_OK;
 var HTTP_NOT_FOUND = 404;
@@ -82,8 +82,6 @@ describe('Readings', function() {
                 .expect(HTTP_OK)
                 .expect(function(res) {
                     expect(res.body).to.deep.equal(adjusted_readings);
-                    console.log("its working!!!");
-                    // assert.deepEqual(res.body, adjusted_readings);
                 })
                 .end(done);
         });
@@ -119,7 +117,6 @@ describe('Readings', function() {
                 .set('Accept', 'application/json')
                 .expect(HTTP_OK)
                 .expect(function(res) {
-                    // console.log(res.body);
                     assert.deepEqual(res.body, readings_fixture[0]);
                 })
                 .end(done);
@@ -154,7 +151,6 @@ describe('Readings', function() {
         });
     });
 
-
     describe('GET /readings/56f104e5c369bf05c26e7a2f/sensors', function() {
         it('respond with code HTTP_OK + data content', function(done) {
             request(app)
@@ -178,25 +174,5 @@ describe('Readings', function() {
                 .end(done);
         });
     });
-
-    // xdescribe('DELETE /dishes/000000000000000000001300/comments', function() {
-    //     it('result code HTTP_OK + all comment cleared', function(done) {
-    //         request(app)
-    //             .delete('/dishes/000000000000000000001300/comments')
-    //             .set('Accept', 'application/json')
-    //             .send(new_comment)
-    //             .expect(HTTP_OK)
-    //             .end(function() {
-    //                 request(app)
-    //                     .get('/dishes/000000000000000000001300/comments')
-    //                     .set('Accept', 'application/json')
-    //                     .expect(HTTP_OK)
-    //                     .expect(function(res) {
-    //                         assert.deepEqual(res.body, []);
-    //                     })
-    //                     .end(done);
-    //             });
-    //     });
-    // });
 
 });

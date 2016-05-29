@@ -26,7 +26,7 @@ var myLogger = new winston.Logger({
         }),
         new winston.transports.Papertrail({
             host: 'logs4.papertrailapp.com',
-            port: 32583, // your port here
+            port: 32583,
             program: 'rest-server',
             colorize: true
         })
@@ -48,20 +48,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
     transports: [
-        // new winston.transports.Console({
-        //     json: true,
-        //     expressFormat: true,
-        //     colorize: true
-        // }),
         new Papertrail({
             host: 'logs4.papertrailapp.com',
-            port: 32583, // your port here
+            port: 32583,
             program: 'rest-server',
             colorize: true
 
@@ -69,7 +63,6 @@ app.use(expressWinston.logger({
     ]
 }));
 
-// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -92,7 +85,7 @@ app.use(expressWinston.errorLogger({
         }),
         new Papertrail({
             host: 'logs4.papertrailapp.com',
-            port: 32583, // your port here
+            port: 32583,
             program: 'rest-server',
             colorize: true
 
