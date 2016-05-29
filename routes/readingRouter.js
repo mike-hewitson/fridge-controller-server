@@ -44,27 +44,6 @@ readingRouter.route('/')
     })
     .post(function(req, res, next) {
 
-        // var options = {
-        //     exclude: 'hourly,daily,flags',
-        //     units: 'si'
-        // };
-        // var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
-
-        // forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
-        //     // myLogger.info(JSON.stringify(data));
-        //     myLogger.info(data.currently.temperature);
-        //     myLogger.info(data.currently.humidity * 100);
-        //     var environment = {
-        //         sensor: 'Environment'
-        //     }
-        //     environment.temp = data.currently.temperature;
-        //     environment.hum = data.currently.humidity * 100;
-        //     myLogger.info(JSON.stringify(environment));
-        // });
-
-        // myLogger.info(JSON.stringify(req.body));
-
-
         Readings.create(req.body, function(err, reading) {
             /* istanbul ignore if */
             if (err) {
@@ -152,7 +131,7 @@ readingRouter.route('/:readingId/sensors')
                 res.json(reading);
             });
         });
-    })
+    });
 
 // Not required at this stage
 // .delete(function(req, res, next) {
@@ -172,7 +151,7 @@ readingRouter.route('/:readingId/sensors')
 //         });
 //     });
 // })
-;
+
 
 // readingRouter.route('/:readingId/comments/:commentId')
 //     .get(function(req, res, next) {
