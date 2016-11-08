@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "coverage": "istanbul cover _mocha -- -R spec"
+    "coverage": "istanbul cover _mocha -- -R spec",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.1",

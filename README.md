@@ -18,15 +18,21 @@ $ gulp lint
 
 Clone repo:
 $ git clone https://github.com/mike-hewitson/fridge-controller-server.git
-$ cd fridge-controller-server
+$ cd pi-fridge-controller-server
 $ npm install
+If using  pm2:
 $ sudo pm2 start ./bin/www
+else
+$npm start
 
 Update from repo
-$ cd fridge-controller-server
+$ cd pi-fridge-controller-server
 $ git pull
 $ npm install
+If using  pm2:
 $ sudo pm2 restart www
+else
+$npm start
 
 ## Environments
 
