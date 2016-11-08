@@ -41,5 +41,7 @@ Environment variables for the rest server port and the mongo server ip and port 
 DB_SERVER='CSJHBAN8G8WN.local'
 DB_PORT='27017'
 PORT='3000'
+DB_USER='xxxxx'
+DB_PSWD='xxxx'
 ```
 
