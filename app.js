@@ -53,6 +53,11 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // Place the express-winston logger before the router.
 app.use(expressWinston.logger({
     transports: [
+        new winston.transports.Console({
+            json: true,
+            expressFormat: true,
+            colorize: true
+        }),
         new Papertrail({
             host: 'logs4.papertrailapp.com',
             port: 32583,
