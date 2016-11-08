@@ -42,6 +42,13 @@ DB_SERVER='CSJHBAN8G8WN.local'
 DB_PORT='27017'
 PORT='3000'
 DB_USER='xxxxx'
-DB_PSWD='xxxx'
+DB_PWD='xxxx'
 ```
-
+Don't forget to ensure that the correct database users has been created with the correct roles:
+db.createUser(
+   {
+     user: "accountUser",
+     pwd: "password",
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+)

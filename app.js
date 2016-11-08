@@ -33,7 +33,8 @@ var myLogger = new winston.Logger({
     ]
 });
 
-var url = 'mongodb://'+process.env.DB_USER+":"+process.env.DB_PSWD+"@"+process.env.DB_SERVER+':'+process.env.DB_PORT+'/charcuterie';
+var url = 'mongodb://'+process.env.DB_USER+":"+process.env.DB_PWD+"@"+process.env.DB_SERVER+':'+process.env.DB_PORT+'/charcuterie';
+console.log(url)
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
