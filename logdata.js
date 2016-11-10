@@ -22,7 +22,7 @@ var myLogger = new winston.Logger({
     ]
 });
 
-var url = 'http://' + process.env.DB_SERVER + ':' + process.env.DB_PORT + '/readings';
+var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
 
 var sensor = {
     sensors: [{
@@ -37,62 +37,61 @@ var sensor = {
         name: "Fridge",
         type: 22,
         pin: 24
-    }]
-};
+    }]};
 
-// read: function() {
-var options = {
-    exclude: 'hourly,daily,flags',
-    units: 'si'
-};
-var forecastIo = new ForecastIo(process.env.API_KEY);
+    // read: function() {
+        var options = {
+            exclude: 'hourly,daily,flags',
+            units: 'si'
+        };
+        var forecastIo = new ForecastIo(process.env.API_KEY);
 
-forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
-    var reading = { date: new Date(), sensors: [] };
+        forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
+            var reading = { date: new Date(), sensors: [] };
 
-    reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-    reading.sensors.push({ sensor: 'Ambient', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-    reading.sensors.push({ sensor: 'Curing', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-    reading.sensors.push({ sensor: 'Fridge', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+            reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+            reading.sensors.push({ sensor: 'Ambient', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+            reading.sensors.push({ sensor: 'Curing', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+            reading.sensors.push({ sensor: 'Fridge', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
 
-    // if (valid_readings) {
-    myLogger.debug(reading);
+            // if (valid_readings) {
+            myLogger.debug(reading);
 
-    var req = {
-        url: url,
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        json: reading
-    };
+            var req = {
+                url: url,
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                json: reading
+            };
 
-    myLogger.info(req);
+            myLogger.info(req);
 
-    request(req, function(error, response, body) {
-        if (response.statusCode === 201) {
-            myLogger.info('document saved');
-        } else {
-            myLogger.error(response.statusCode);
-            myLogger.error(body);
-        }
-    });
+            request(req, function(error, response, body) {
+                if (response.statusCode === 201) {
+                    myLogger.info('document saved');
+                } else {
+                    myLogger.error(response.statusCode);
+                    myLogger.error(body);
+                }
+            });
 
-    // setTimeout(function() {
-    //     sensor.read();
-    // }, 300000);
-    // } else {
+            // setTimeout(function() {
+            //     sensor.read();
+            // }, 300000);
+            // } else {
 
-    //     myLogger.warn('Zero reading : restarting');
-    //     setTimeout(function() {
-    //         sensor.read();
-    //     }, 10000);
+            //     myLogger.warn('Zero reading : restarting');
+            //     setTimeout(function() {
+            //         sensor.read();
+            //     }, 10000);
+            // }
+        });
+
+
+
     // }
-});
-
-
-
-// }
 // }
 ;
 
