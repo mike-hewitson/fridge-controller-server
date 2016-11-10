@@ -71,9 +71,11 @@ forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
     request(req, function(error, response, body) {
         if (response.statusCode === 201) {
             myLogger.info('document saved');
+            process.exit();
         } else {
             myLogger.error(response.statusCode);
             myLogger.error(body);
+            process.exit(1);
         }
     });
 
