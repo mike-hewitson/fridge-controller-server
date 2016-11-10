@@ -22,7 +22,7 @@ var myLogger = new winston.Logger({
     ]
 });
 
-var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
+var url = 'http://' + process.env.DB_SERVER + ':' + process.env.DB_PORT + '/readings';
 
 var sensor = {
     sensors: [{
