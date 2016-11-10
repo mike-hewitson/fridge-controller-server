@@ -37,62 +37,44 @@ var sensor = {
         name: "Fridge",
         type: 22,
         pin: 24
-    }]};
+    }]
+};
 
-    // read: function() {
-        var options = {
-            exclude: 'hourly,daily,flags',
-            units: 'si'
-        };
-        var forecastIo = new ForecastIo(process.env.API_KEY);
+var options = {
+    exclude: 'hourly,daily,flags',
+    units: 'si'
+};
 
-        forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
-            var reading = { date: new Date(), sensors: [] };
+var forecastIo = new ForecastIo(process.env.API_KEY);
 
-            reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-            reading.sensors.push({ sensor: 'Ambient', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-            reading.sensors.push({ sensor: 'Curing', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-            reading.sensors.push({ sensor: 'Fridge', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
+    var reading = { date: new Date(), sensors: [] };
 
-            // if (valid_readings) {
-            myLogger.debug(reading);
+    reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+    reading.sensors.push({ sensor: 'Ambient', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+    reading.sensors.push({ sensor: 'Curing', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
+    reading.sensors.push({ sensor: 'Fridge', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
 
-            var req = {
-                url: url,
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                json: reading
-            };
+    myLogger.debug(reading);
 
-            myLogger.info(req);
+    var req = {
+        url: url,
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        json: reading
+    };
 
-            request(req, function(error, response, body) {
-                if (response.statusCode === 201) {
-                    myLogger.info('document saved');
-                } else {
-                    myLogger.error(response.statusCode);
-                    myLogger.error(body);
-                }
-            });
+    myLogger.info(req);
 
-            // setTimeout(function() {
-            //     sensor.read();
-            // }, 300000);
-            // } else {
+    request(req, function(error, response, body) {
+        if (response.statusCode === 201) {
+            myLogger.info('document saved');
+        } else {
+            myLogger.error(response.statusCode);
+            myLogger.error(body);
+        }
+    });
 
-            //     myLogger.warn('Zero reading : restarting');
-            //     setTimeout(function() {
-            //         sensor.read();
-            //     }, 10000);
-            // }
-        });
-
-
-
-    // }
-// }
-;
-
-// sensor.read();
+});
