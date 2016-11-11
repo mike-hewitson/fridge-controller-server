@@ -52,3 +52,13 @@ db.createUser(
      roles: [ "readWrite", "dbAdmin" ]
    }
 )
+
+## Simulations
+
+The script logdata.js will log temperatures (once per run) for testing purposes. It should be run via a scheduler. It does need to following variables added to the environment file. If running on Heroku, the Heroku scheduler works well.
+```
+API_KEY=forecast.io-api-key
+REST_SERVER=the-backend-server
+REST_PORT=80
+```
+
